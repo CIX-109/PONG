@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://co7ar4u1wewj"]
+
+[ext_resource type="Script" uid="uid://pdrf18dtmpgq" path="res://Level/level.gd" id="1_iincs"]
+[ext_resource type="PackedScene" uid="uid://duk3u5fjxpqgb" path="res://Player/player.tscn" id="1_o6mkr"]
+[ext_resource type="PackedScene" uid="uid://d4b1rsuc6wpnk" path="res://Opponent/opponent.tscn" id="2_uawph"]
+[ext_resource type="PackedScene" uid="uid://de7ligawvexfd" path="res://Ball/ball.tscn" id="3_52x1o"]
+[ext_resource type="Script" uid="uid://crqdxfmxxrx48" path="res://Opponent/opponent.gd" id="3_iincs"]
+[ext_resource type="AudioStream" uid="uid://hfuo85qox4pn" path="res://Assets/ping_pong_8bit_plop.ogg" id="6_nk1il"]
+[ext_resource type="AudioStream" uid="uid://gcdxf248u7jo" path="res://Assets/Music.mp3" id="7_d6qko"]
+
+[sub_resource type="SystemFont" id="SystemFont_iincs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6mkr"]
+size = Vector2(1694, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52x1o"]
+size = Vector2(147.5, 846.75)
+
+[node name="Level" type="Node" unique_id=945646597]
+script = ExtResource("1_iincs")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=427786588]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02682901, 0.025286183, 0.096029416, 1)
+
+[node name="PlayerScore" type="Label" parent="." unique_id=369567034]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -5.5
+offset_right = -400.0
+offset_bottom = 5.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.96862745, 1, 0.23137255)
+theme_override_fonts/font = SubResource("SystemFont_iincs")
+theme_override_font_sizes/font_size = 800
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OpponentScore" type="Label" parent="." unique_id=228767758]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 400.0
+offset_top = -5.5
+offset_right = 400.0
+offset_bottom = 5.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.96862745, 1, 0.23137255)
+theme_override_fonts/font = SubResource("SystemFont_iincs")
+theme_override_font_sizes/font_size = 800
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=881294604]
+wait_time = 1.5
+one_shot = true
+
+[node name="Character" parent="." unique_id=1257375476 groups=["Paddle"] instance=ExtResource("1_o6mkr")]
+position = Vector2(180, 540)
+
+[node name="Opponent" parent="." unique_id=995479150 groups=["Paddle"] instance=ExtResource("2_uawph")]
+position = Vector2(1740, 540)
+script = ExtResource("3_iincs")
+
+[node name="Ball" parent="." unique_id=1751270136 instance=ExtResource("3_52x1o")]
+position = Vector2(960, 540)
+
+[node name="Walls" type="StaticBody2D" parent="." unique_id=887555659]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls" unique_id=750688339]
+top_level = true
+position = Vector2(960, 90)
+rotation = -3.1415925
+shape = SubResource("RectangleShape2D_o6mkr")
+one_way_collision = true
+
+[node name="ColorRect" type="ColorRect" parent="Walls/CollisionShape2D" unique_id=1311874186]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -847.94916
+offset_top = -9.999939
+offset_right = 847.9493
+offset_bottom = 25.999947
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.23137255, 0.92941177, 0.69411767, 0.41568628)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls" unique_id=372781523]
+position = Vector2(960, 990)
+shape = SubResource("RectangleShape2D_o6mkr")
+one_way_collision = true
+
+[node name="ColorRect2" type="ColorRect" parent="Walls/CollisionShape2D2" unique_id=1477321243]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -847.9492
+offset_top = -10.0
+offset_right = 847.9492
+offset_bottom = 25.999878
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.23137255, 0.92941177, 0.69411767, 0.41568628)
+
+[node name="Left_winArea" type="Area2D" parent="." unique_id=10548867]
+
+[node name="Collision" type="CollisionShape2D" parent="Left_winArea" unique_id=955069097]
+position = Vector2(74, 540)
+shape = SubResource("RectangleShape2D_52x1o")
+
+[node name="ColorRect" type="ColorRect" parent="Left_winArea/Collision" unique_id=962322553]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -421.0
+offset_right = 73.0
+offset_bottom = 421.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.19607843, 0.40392157, 0.5294118)
+
+[node name="Right_winArea" type="Area2D" parent="." unique_id=513378878]
+
+[node name="Collision" type="CollisionShape2D" parent="Right_winArea" unique_id=538228511]
+position = Vector2(1846, 540)
+rotation = 3.1415927
+shape = SubResource("RectangleShape2D_52x1o")
+
+[node name="ColorRect" type="ColorRect" parent="Right_winArea/Collision" unique_id=462430416]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -421.0
+offset_right = 73.0
+offset_bottom = 421.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.19607843, 0.40392157, 0.5294118)
+
+[node name="Score" type="AudioStreamPlayer" parent="." unique_id=1719684982]
+stream = ExtResource("6_nk1il")
+volume_db = 2.0
+pitch_scale = 0.5
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=488581497]
+stream = ExtResource("7_d6qko")
+max_polyphony = 3
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Left_winArea" to="." method="_on_left_win_area_body_entered"]
+[connection signal="body_entered" from="Right_winArea" to="." method="_on_right_win_area_body_entered"]
